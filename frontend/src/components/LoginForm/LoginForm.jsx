@@ -25,7 +25,7 @@ export default function LoginForm() {
 
     login();
 
-    navigate("/gameList");
+    // navigate("");
   };
 
   return (

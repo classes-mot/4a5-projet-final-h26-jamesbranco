@@ -6,21 +6,27 @@ export const useAuth = () => useContext(AuthCont);
 const AuthContext = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 🔐 LOGIN
   const login = () => {
-    sessionStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("isLoggedIn", "true");
     setIsLoggedIn(true);
   };
 
+  // 🔓 LOGOUT
   const logout = () => {
-    sessionStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
+
+  // 🔄 RESTORE STATE ON REFRESH
   useEffect(() => {
-    const storedIsLoggedIn = sessionStorage.getItem("isLoggedIn");
-    if (storedIsLoggedIn === "true") {
+    const stored = localStorage.getItem("isLoggedIn");
+
+    if (stored === "true") {
       setIsLoggedIn(true);
     }
   }, []);
+
   return (
     <AuthCont.Provider
       value={{
@@ -33,4 +39,5 @@ const AuthContext = (props) => {
     </AuthCont.Provider>
   );
 };
+
 export default AuthContext;
