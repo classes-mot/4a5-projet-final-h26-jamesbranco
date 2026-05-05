@@ -1,0 +1,30 @@
+.music-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: white;
+}
+
+.music-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.btn.edit {
+  background: orange;
+}
+
+.btn.delete {
+  background: red;
+}
