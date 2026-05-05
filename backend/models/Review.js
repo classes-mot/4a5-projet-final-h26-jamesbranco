@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const reviewSchema = mongoose.Schema({
   title: { type: String, required: true },
-  artist: { type: String, required: true },
-  genre: { type: String },
   rating: { type: Number },
   comment: { type: String },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  song: { type: mongoose.Schema.Types.ObjectId, ref: "Song" },
 });
 
 export const User = mongoose.model("Review", reviewSchema);

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./util/db.js";
 import errorHandler from "./handler/errorHandler.js";
+import routerSong from "./routes/song-route.js";
 import routerReview from "./routes/review-route.js";
 import routerUser from "./routes/user-route.js";
 

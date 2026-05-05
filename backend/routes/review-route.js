@@ -9,14 +9,15 @@ router.get("/", reviewController.getReviews);
 
 router.get("/:id", reviewController.getReviewById);
 
+router.get("/song/:songId", reviewController.getReviewsBySong);
+
 router.post(
   "/",
   [
     check("title").not().isEmpty(),
-    check("artist").not().isEmpty(),
-    check("genre").not().isEmpty(),
     check("rating").isNumeric(),
     check("comment").not().isEmpty(),
+    check("song").not().isEmpty(),
     checkAuth,
   ],
   reviewController.postReview,

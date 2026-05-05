@@ -3,10 +3,13 @@ import mongoose from "mongoose";
 
 const getReviews = async (req, res, next) => {
   try {
-    const reviews = await Review.find();
+    const reviews = await Review.find()
+      .populate("user", "username")
+      .populate("song", "title artist");
+
     res.json(reviews);
   } catch (err) {
-    return next(new Error("erreur"));
+    return next(new Error("Erreur lors de la recuperations des reviews"));
   }
 };
 
@@ -15,7 +18,9 @@ const getReviewById = async (req, res, next) => {
 
   let review;
   try {
-    review = await Review.findById(reviewId);
+    review = await Review.findById(reviewId)
+      .populate("user", "username")
+      .populate("song", "title artist");
   } catch (err) {
     console.log(err);
     return next(new Error("erreur"));
@@ -28,19 +33,34 @@ const getReviewById = async (req, res, next) => {
   res.json({ review: review.toObject({ getters: true }) });
 };
 
+const getReviewsBySong = async (req, res, next) => {
+  const songId = req.params.songId;
+
+  try {
+    const reviews = await Review.find({ song: songId }).populate(
+      "user",
+      "username",
+    );
+
+    res.json(reviews);
+  } catch (err) {
+    return next(new Error("Erreur"));
+  }
+};
+
 const postReview = async (req, res, next) => {
   const review = new Review({
     title: req.body.title,
-    artist: req.body.artist,
-    genre: req.body.genre,
     rating: req.body.rating,
     comment: req.body.comment,
+    song: req.body.song,
+    user: req.user.id,
   });
 
   try {
     await review.save();
   } catch (err) {
-    return next(new Error("erreur"));
+    return next(new Error("Erreur lors de la creation"));
   }
   res.status(201).json(review);
 };
@@ -86,6 +106,7 @@ const deleteReviews = async (req, res, next) => {
 
 export default {
   getReviews,
+  getReviewsBySong,
   postReview,
   getReviewById,
   updateReviews,
