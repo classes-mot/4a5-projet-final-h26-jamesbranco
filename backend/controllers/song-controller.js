@@ -67,15 +67,19 @@ const deleteSongs = async (req, res, next) => {
   const songId = req.params.id;
 
   try {
-    const song = await Song.findById(songId);
+    const song = await Song.findByIdAndDelete(songId);
     if (!song) {
       return res.status(404).json({ message: "Chanson non trouvée." });
     }
-    await song.deleteOne();
 
-    res.status(200).json({ message: "Chanson supprimer" });
+    res.status(200).json({ message: "Chanson supprimée", id: songId });
   } catch (err) {
-    return next(new Error("erreur"));
+    console.log("DELETE ERROR:", err);
+
+    return res.status(500).json({
+      message: "Erreur serveur lors de la suppression",
+      error: err.message,
+    });
   }
 };
 

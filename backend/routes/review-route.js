@@ -5,26 +5,26 @@ import checkAuth from "../middleware/check-auth.js";
 
 const router = express.Router();
 
+router.get("/song/:songId", reviewController.getReviewsBySong);
+
 router.get("/", reviewController.getReviews);
 
 router.get("/:id", reviewController.getReviewById);
 
-router.get("/song/:songId", reviewController.getReviewsBySong);
-
 router.post(
   "/",
-  [
+  checkAuth,
+  /* [
     check("title").not().isEmpty(),
     check("rating").isNumeric(),
     check("comment").not().isEmpty(),
     check("song").not().isEmpty(),
-    checkAuth,
-  ],
+  ], */
   reviewController.postReview,
 );
 
-router.patch("/:id", [checkAuth], reviewController.updateReviews);
+router.patch("/:id", reviewController.updateReviews);
 
-router.delete("/:id", [checkAuth], reviewController.deleteReviews);
+router.delete("/:id", reviewController.deleteReviews);
 
 export default router;

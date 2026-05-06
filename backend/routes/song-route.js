@@ -11,17 +11,17 @@ router.get("/:id", songController.getSongById);
 
 router.post(
   "/",
+  /* checkAuth,
   [
     check("title").not().isEmpty(),
     check("artist").not().isEmpty(),
     check("genre").not().isEmpty(),
-    checkAuth,
-  ],
+  ],*/
   songController.postSong,
 );
 
-router.patch("/:id", [checkAuth], songController.updateSongs);
+router.patch("/:id", songController.updateSongs);
 
-router.delete("/:id", [checkAuth], songController.deleteSongs);
+router.delete("/:id", songController.deleteSongs);
 
 export default router;

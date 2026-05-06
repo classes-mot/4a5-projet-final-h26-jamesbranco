@@ -1,107 +1,99 @@
 import { Review } from "../models/Review.js";
-import mongoose from "mongoose";
 
-const getReviews = async (req, res, next) => {
+const getReviews = async (req, res) => {
   try {
-    const reviews = await Review.find()
-      .populate("user", "username")
-      .populate("song", "title artist");
+    const reviews = await Review.find().populate("song", "title artist");
 
-    res.json(reviews);
+    res.status(200).json(reviews);
   } catch (err) {
-    return next(new Error("Erreur lors de la recuperations des reviews"));
+    console.log("GET REVIEWS ERROR:", err);
+    res.status(500).json([]);
   }
 };
 
-const getReviewById = async (req, res, next) => {
-  const reviewId = req.params.id;
-
-  let review;
+const getReviewById = async (req, res) => {
   try {
-    review = await Review.findById(reviewId)
-      .populate("user", "username")
-      .populate("song", "title artist");
-  } catch (err) {
-    console.log(err);
-    return next(new Error("erreur"));
-  }
-
-  if (!review) {
-    return res.status(404).json({ message: "Review non trouvé" });
-  }
-
-  res.json({ review: review.toObject({ getters: true }) });
-};
-
-const getReviewsBySong = async (req, res, next) => {
-  const songId = req.params.songId;
-
-  try {
-    const reviews = await Review.find({ song: songId }).populate(
-      "user",
-      "username",
+    const review = await Review.findById(req.params.id).populate(
+      "song",
+      "title artist",
     );
 
-    res.json(reviews);
+    if (!review) {
+      return res.status(404).json({ message: "Review non trouvé" });
+    }
+
+    res.status(200).json(review);
   } catch (err) {
-    return next(new Error("Erreur"));
+    console.log(err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-const postReview = async (req, res, next) => {
-  const review = new Review({
-    title: req.body.title,
-    rating: req.body.rating,
-    comment: req.body.comment,
-    song: req.body.song,
-    user: req.user.id,
-  });
-
+const getReviewsBySong = async (req, res) => {
   try {
-    await review.save();
+    const reviews = await Review.find({
+      song: req.params.songId,
+    }).populate("song", "title artist");
+
+    res.status(200).json(reviews);
   } catch (err) {
-    return next(new Error("Erreur lors de la creation"));
+    console.log(err);
+    res.status(500).json([]);
   }
-  res.status(201).json(review);
 };
 
-const updateReviews = async (req, res, next) => {
-  const reviewId = req.params.id;
-  const reviewUpdates = req.body;
+const postReview = async (req, res) => {
+  try {
+    const review = new Review({
+      title: req.body.title,
+      rating: req.body.rating,
+      comment: req.body.comment,
+      song: req.body.song,
+      user: req.user.id,
+    });
 
+    await review.save();
+
+    res.status(201).json(review);
+  } catch (err) {
+    console.log("CREATE REVIEW ERROR:", err);
+    res.status(500).json({ message: "Erreur création review" });
+  }
+};
+
+const updateReviews = async (req, res) => {
   try {
     const updatedReview = await Review.findByIdAndUpdate(
-      reviewId,
-      reviewUpdates,
-      {
-        new: true,
-      },
+      req.params.id,
+      req.body,
+      { new: true },
     );
 
     if (!updatedReview) {
-      return res.status(404).json({ message: "Review non trouvée..." });
+      return res.status(404).json({ message: "Review non trouvée" });
     }
 
-    res.status(200).json({ review: updatedReview.toObject({ getters: true }) });
+    res.status(200).json(updatedReview);
   } catch (err) {
-    return next(new Error("erreur"));
+    console.log(err);
+    res.status(500).json({ message: "Erreur update review" });
   }
 };
 
-const deleteReviews = async (req, res, next) => {
-  const reviewId = req.params.id;
-
+const deleteReviews = async (req, res) => {
   try {
-    const review = await Review.findById(reviewId);
+    const review = await Review.findByIdAndDelete(req.params.id);
+
     if (!review) {
       return res.status(404).json({ message: "Review non trouvée." });
     }
-    await review.deleteOne();
 
-    res.status(200).json({ message: "Review supprimer" });
+    res.status(200).json({ message: "Review supprimée" });
   } catch (err) {
-    return next(new Error("erreur"));
+    console.log(err);
+    res.status(500).json({ message: "Erreur delete review" });
   }
+  console.log("DELETE ID:", req.params.id);
 };
 
 export default {
