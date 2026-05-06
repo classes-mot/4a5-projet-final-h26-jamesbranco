@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -25,7 +26,7 @@ export default function LoginForm() {
 
     login();
 
-    // navigate("");
+    navigate("/");
   };
 
   return (
@@ -60,6 +61,10 @@ export default function LoginForm() {
 
       <p className="form-actions">
         <button className="button">Se connecter</button>
+      </p>
+
+      <p style={{ marginTop: "1rem" }}>
+        Pas de compte ? <Link to="/register">Créer un compte</Link>
       </p>
     </form>
   );

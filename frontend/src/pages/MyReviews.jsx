@@ -11,14 +11,14 @@ export default function MyReviewsPage() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
-  // 📥 FETCH
+  // FETCH REVIEWS
   useEffect(() => {
     async function fetchReviews() {
       try {
         const res = await fetch("http://localhost:5000/api/reviews");
         const data = await res.json();
 
-        setReviews(data);
+        setReviews(Array.isArray(data) ? data : []);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -30,16 +30,22 @@ export default function MyReviewsPage() {
     fetchReviews();
   }, []);
 
-  // ❌ DELETE
+  // DELETE REVIEW
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/reviews/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
         method: "DELETE",
       });
 
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Delete failed");
+      }
+
       setReviews((prev) => prev.filter((r) => r._id !== id));
     } catch (err) {
-      console.log(err);
+      console.log("DELETE ERROR:", err);
     }
   };
 
@@ -51,15 +57,11 @@ export default function MyReviewsPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-
-        <button onClick={() => navigate("/reviews/add")}>Add Review</button>
-      </nav>
-
+    <div className="my-reviews-page">
+      {/* TITLE */}
       <h2>My Reviews</h2>
 
+      {/* LIST */}
       {reviews.length === 0 ? (
         <p>No reviews yet</p>
       ) : (

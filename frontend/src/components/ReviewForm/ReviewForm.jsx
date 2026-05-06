@@ -24,6 +24,11 @@ function ReviewForm({ songId, reviewToEdit }) {
       return;
     }
 
+    if (!songId) {
+      setError("No song selected");
+      return;
+    }
+
     const reviewData = {
       title,
       rating: ratingNumber,

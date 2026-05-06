@@ -43,13 +43,15 @@ function ReviewList({ songId }) {
         method: "DELETE",
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
         throw new Error("Delete failed");
       }
 
       setReviews((prev) => prev.filter((r) => r._id !== id));
     } catch (err) {
-      console.log(err);
+      console.log("Delete Error:", err);
     }
   };
 
@@ -58,8 +60,6 @@ function ReviewList({ songId }) {
 
   return (
     <div className="review-list">
-      <h3>Reviews</h3>
-
       {reviews.length === 0 ? (
         <p>No reviews found</p>
       ) : (

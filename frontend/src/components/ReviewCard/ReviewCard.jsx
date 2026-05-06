@@ -5,9 +5,6 @@ function ReviewCard({ review, onDelete }) {
   const { isLoggedIn } = useAuth();
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("Delete this review ?");
-    if (!confirmDelete) return;
-
     try {
       const res = await fetch(
         `http://localhost:5000/api/reviews/${review._id}`,
@@ -16,8 +13,11 @@ function ReviewCard({ review, onDelete }) {
         },
       );
 
+      const data = await res.json();
+      console.log("DELETE RESPONSE:", data);
+
       if (!res.ok) {
-        throw new Error("Delete failed");
+        throw new Error(data.message || "Delete failed");
       }
 
       if (onDelete) onDelete(review._id);
@@ -52,7 +52,7 @@ function ReviewCard({ review, onDelete }) {
         )}
 
         {isLoggedIn && (
-          <button onClick={handleDelete} className="btn delete">
+          <button onClick={() => onDelete(review._id)} className="btn delete">
             Delete
           </button>
         )}

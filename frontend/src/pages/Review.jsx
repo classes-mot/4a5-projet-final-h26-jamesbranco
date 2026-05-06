@@ -21,7 +21,9 @@ export default function ReviewPage() {
 
         const data = await res.json();
 
-        setSong(data);
+        // ⚠️ IMPORTANT: ton backend retourne probablement { song: {...} }
+        setSong(data.song || data);
+
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -35,6 +37,7 @@ export default function ReviewPage() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (!song) return <p>No song found</p>;
 
   return (
     <div className="review-page">
@@ -44,15 +47,21 @@ export default function ReviewPage() {
           Home
         </Link>
 
-        <Link to="/my-reviews">My Reviews</Link>
+        <Link to="/my-reviews" style={{ marginRight: "10px" }}>
+          My Reviews
+        </Link>
+
+        <Link to={`/reviews/add/${id}`}>Add Review</Link>
       </nav>
 
       {/* SONG DETAILS */}
       <div className="song-details">
         <h2>{song.title}</h2>
+
         <p>
           <strong>Artist:</strong> {song.artist}
         </p>
+
         <p>
           <strong>Genre:</strong> {song.genre}
         </p>
