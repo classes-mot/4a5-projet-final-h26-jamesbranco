@@ -5,6 +5,8 @@ import AuthContext from "./components/AuthContext/AuthContext";
 import RootLayout from "./Pages/RootLayout";
 import Error from "./Pages/Error";
 
+import HomePage from "./Pages/HomePage";
+
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 
@@ -22,18 +24,21 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <Error />,
     children: [
-      // 🔐 AUTH
+      // HOME PAGE
+      { index: true, element: <HomePage /> },
+
+      //  AUTH
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
 
-      // 🎵 SONGS
+      //  SONGS
       { path: "songs/add", element: <AddSong /> },
       { path: "songs/edit/:id", element: <EditSong /> },
 
-      // 🎧 SONG DETAILS + REVIEWS
+      //  SONG DETAILS + REVIEWS
       { path: "songs/:id", element: <Review /> },
 
-      // 📝 REVIEWS
+      //  REVIEWS
       { path: "my-reviews", element: <MyReviews /> },
       { path: "reviews/add/:songId", element: <AddReview /> },
       { path: "reviews/edit/:id", element: <EditReview /> },
