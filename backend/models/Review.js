@@ -8,4 +8,4 @@ const reviewSchema = mongoose.Schema({
   song: { type: mongoose.Schema.Types.ObjectId, ref: "Song" },
 });
 
-export const User = mongoose.model("Review", reviewSchema);
+export const Review = mongoose.model("Review", reviewSchema);

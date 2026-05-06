@@ -6,4 +6,4 @@ const songSchema = mongoose.Schema({
   genre: { type: String },
 });
 
-export const User = mongoose.model("Song", songSchema);
+export const Song = mongoose.model("Song", songSchema);
