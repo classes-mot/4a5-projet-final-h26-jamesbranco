@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext/AuthContext";
 import { useTranslation } from "react-i18next";
+import "./LoginForm.css";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -26,7 +27,7 @@ export default function LoginForm() {
     if (emailEmpty || passwordEmpty) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/login", {
+      const res = await fetch("http://localhost:5000/api/users/connexion", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,9 +38,10 @@ export default function LoginForm() {
           password,
         }),
       });
-      console.log("LOGIN RESPONSE =", data);
 
       const data = await res.json();
+
+      console.log("LOGIN RESPONSE =", data);
 
       if (!res.ok) {
         throw new Error(data.message || "Login failed");
@@ -55,7 +57,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={authSubmitHandler}>
+    <form onSubmit={authSubmitHandler} className="login-form">
       <h2>{t("login.title")}</h2>
 
       <div className="control-row">

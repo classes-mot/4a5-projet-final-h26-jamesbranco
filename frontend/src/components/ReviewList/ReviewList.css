@@ -1,0 +1,27 @@
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 100%;
+  max-width: 900px;
+
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.review-list p {
+  text-align: center;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.review-list .error {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+.review-list .loading {
+  color: #aaa;
+  font-style: italic;
+}

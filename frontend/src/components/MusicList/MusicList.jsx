@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MusicCard from "../MusicCard/MusicCard";
 import { useAuth } from "../AuthContext/AuthContext";
+import "./MusicList.css";
 
 const MusicList = () => {
   const [songs, setSongs] = useState([]);

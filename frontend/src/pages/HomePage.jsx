@@ -48,7 +48,6 @@ export default function HomePage() {
     <div>
       <LanguageSwitcher />
 
-      {/* ✅ FIX I18N */}
       <h2>{t("home.title")}</h2>
 
       {songs.length === 0 ? (

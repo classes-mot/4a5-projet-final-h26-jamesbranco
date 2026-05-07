@@ -1,0 +1,64 @@
+.music-list {
+  max-width: 1000px;
+
+  margin: 2rem auto;
+  padding: 20px;
+}
+
+.music-list h2 {
+  text-align: center;
+
+  margin-bottom: 20px;
+
+  color: white;
+
+  font-size: 2rem;
+}
+
+.music-list button {
+  display: block;
+
+  margin: 0 auto 2rem auto;
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #646cff;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.music-list button:hover {
+  background-color: #4f56d6;
+
+  transform: translateY(-2px);
+}
+
+.music-list p {
+  text-align: center;
+
+  color: #ddd;
+
+  font-size: 1rem;
+}
+
+.music-list .error {
+  color: #ff5c5c;
+
+  font-weight: bold;
+}
+
+.music-list > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+}

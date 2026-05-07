@@ -1,6 +1,7 @@
 import { useAuth } from "../AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import "./ReviewCard.css";
 
 function ReviewCard({ review, onDelete }) {
   const { isLoggedIn } = useAuth();

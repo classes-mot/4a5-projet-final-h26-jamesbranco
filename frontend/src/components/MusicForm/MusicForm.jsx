@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./MusicForm.css";
 
 function MusicForm({ onSave, songToEdit }) {
   const [title, setTitle] = useState(songToEdit?.title || "");
@@ -66,6 +67,7 @@ function MusicForm({ onSave, songToEdit }) {
   return (
     <form
       onSubmit={handleSubmit}
+      className="music-form"
       style={{
         display: "flex",
         flexDirection: "column",

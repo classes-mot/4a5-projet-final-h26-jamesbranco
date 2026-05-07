@@ -3,7 +3,16 @@
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
-  background: #fff;
+  background: grey;
+
+  color: #111;
+}
+
+.review-card h3,
+.review-card h4,
+.review-card p,
+.review-card span {
+  color: #111;
 }
 
 .review-actions {
@@ -22,7 +31,7 @@
 }
 
 .btn.edit {
-  background: orange;
+  background: black;
 }
 
 .btn.delete {
