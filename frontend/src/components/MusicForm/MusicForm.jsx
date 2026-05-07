@@ -26,16 +26,19 @@ function MusicForm({ onSave, songToEdit }) {
 
       if (songToEdit) {
         // UPDATE
-        res = await fetch(`http://localhost:5000/api/songs/${songToEdit._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
+        res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/songs/${songToEdit._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newSong),
           },
-          body: JSON.stringify(newSong),
-        });
+        );
       } else {
         // CREATE
-        res = await fetch("http://localhost:5000/api/songs", {
+        res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

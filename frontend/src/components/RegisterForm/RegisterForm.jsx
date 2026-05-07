@@ -22,17 +22,20 @@ function RegisterForm() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/inscription", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/users/inscription`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            email,
+            password,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      });
+      );
 
       if (!res.ok) {
         throw new Error("Registration failed");

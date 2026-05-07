@@ -10,9 +10,12 @@ function MusicCard({ song, onDelete }) {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/songs/${song._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/songs/${song._id}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!res.ok) {
         throw new Error("Delete failed");

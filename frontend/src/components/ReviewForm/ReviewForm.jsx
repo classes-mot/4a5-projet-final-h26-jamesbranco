@@ -43,7 +43,7 @@ function ReviewForm({ songId, reviewToEdit }) {
       if (reviewToEdit) {
         // UPDATE
         const res = await fetch(
-          `http://localhost:5000/api/reviews/${reviewToEdit._id}`,
+          `${import.meta.env.VITE_API_URL}/api/reviews${reviewToEdit._id}`,
           {
             method: "PATCH",
             headers: {
@@ -58,7 +58,7 @@ function ReviewForm({ songId, reviewToEdit }) {
         navigate("/my-reviews");
       } else {
         // CREATE
-        const res = await fetch("http://localhost:5000/api/reviews", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/reviews`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

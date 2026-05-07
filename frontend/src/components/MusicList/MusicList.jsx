@@ -12,11 +12,11 @@ const MusicList = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
-  // 📥 GET songs
+  // GET songs
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/songs");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs`);
 
         if (!res.ok) {
           throw new Error("Failed to load songs");
@@ -36,12 +36,15 @@ const MusicList = () => {
     fetchSongs();
   }, []);
 
-  // ❌ DELETE song
+  // DELETE song
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/songs/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/songs/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!res.ok) {
         throw new Error("Delete failed");

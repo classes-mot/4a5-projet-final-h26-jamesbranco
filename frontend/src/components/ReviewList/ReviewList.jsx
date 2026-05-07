@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import "./ReviewList.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ReviewList({ songId }) {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // 📥 FETCH reviews
+  // FETCH reviews
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        let url = "http://localhost:5000/api/reviews";
+        let url = `${API_URL}/api/reviews`;
 
         if (songId) {
-          url = `http://localhost:5000/api/reviews/song/${songId}`;
+          url = `${API_URL}/api/reviews/song/${songId}`;
         }
 
         const res = await fetch(url);
@@ -37,10 +39,10 @@ function ReviewList({ songId }) {
     fetchReviews();
   }, [songId]);
 
-  // ❌ DELETE (backend + UI)
+  //  DELETE (backend + UI)
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
+      const res = await fetch(`${API_URL}/api/reviews/${id}`, {
         method: "DELETE",
       });
 
