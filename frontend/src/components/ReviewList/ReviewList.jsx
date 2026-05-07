@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ReviewCard from "../ReviewCard/ReviewCard";
+import "./ReviewList.css";
 
 function ReviewList({ songId }) {
   const [reviews, setReviews] = useState([]);
@@ -55,8 +56,9 @@ function ReviewList({ songId }) {
     }
   };
 
-  if (loading) return <p>Loading reviews...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) return <p className="loading">Loading reviews...</p>;
+
+  if (error) return <p className="error">{error}</p>;
 
   return (
     <div className="review-list">

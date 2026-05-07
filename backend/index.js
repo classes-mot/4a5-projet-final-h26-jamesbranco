@@ -8,6 +8,11 @@ import routeurUser from "./routes/user-route.js";
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/db-deploy";
+
 app.use(express.json());
 
 app.use(cors());
