@@ -13,7 +13,6 @@ router.get("/:id", reviewController.getReviewById);
 
 router.post(
   "/",
-  checkAuth,
   /* [
     check("title").not().isEmpty(),
     check("rating").isNumeric(),

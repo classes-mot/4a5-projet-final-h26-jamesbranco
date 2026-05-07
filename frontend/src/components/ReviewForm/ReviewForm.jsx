@@ -29,12 +29,14 @@ function ReviewForm({ songId, reviewToEdit }) {
       return;
     }
 
-    const reviewData = {
+    const newReview = {
       title,
       rating: ratingNumber,
       comment,
       song: songId,
     };
+
+    const token = localStorage.getItem("token");
 
     try {
       if (reviewToEdit) {
@@ -46,7 +48,7 @@ function ReviewForm({ songId, reviewToEdit }) {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(reviewData),
+            body: JSON.stringify(newReview),
           },
         );
 
@@ -59,8 +61,9 @@ function ReviewForm({ songId, reviewToEdit }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(reviewData),
+          body: JSON.stringify(newReview),
         });
 
         if (!res.ok) throw new Error("Create failed");

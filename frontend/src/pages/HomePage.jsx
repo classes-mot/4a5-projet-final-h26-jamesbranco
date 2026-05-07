@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export default function HomePage() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  // GET songs
   const fetchSongs = async () => {
     const res = await fetch("http://localhost:5000/api/songs");
     const data = await res.json();
     setSongs(data);
   };
 
-  // ⭐ GET reviews (AJOUT)
   const fetchReviews = async () => {
     const res = await fetch("http://localhost:5000/api/reviews");
     const data = await res.json();
@@ -25,7 +26,6 @@ export default function HomePage() {
     fetchReviews();
   }, []);
 
-  // DELETE song
   const deleteSong = async (id) => {
     try {
       const res = await fetch(`http://localhost:5000/api/songs/${id}`, {
@@ -40,17 +40,19 @@ export default function HomePage() {
     }
   };
 
-  // reviews par song
   const getSongReviews = (songId) => {
     return reviews.filter((r) => r.song?._id === songId || r.song === songId);
   };
 
   return (
     <div>
-      <h2>All Songs 🎧</h2>
+      <LanguageSwitcher />
+
+      {/* ✅ FIX I18N */}
+      <h2>{t("home.title")}</h2>
 
       {songs.length === 0 ? (
-        <p>No songs found</p>
+        <p>{t("home.noSongs")}</p>
       ) : (
         songs.map((song) => {
           const songReviews = getSongReviews(song._id);
@@ -62,10 +64,12 @@ export default function HomePage() {
               <p>{song.genre}</p>
 
               <div style={{ marginTop: "10px" }}>
-                <h4>Reviews ({songReviews.length})</h4>
+                <h4>
+                  {t("home.reviews")} ({songReviews.length})
+                </h4>
 
                 {songReviews.length === 0 ? (
-                  <p>No reviews yet</p>
+                  <p>{t("home.noReviews")}</p>
                 ) : (
                   songReviews.map((review) => (
                     <div
@@ -84,14 +88,14 @@ export default function HomePage() {
 
               <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
                 <button onClick={() => navigate(`/reviews/add/${song._id}`)}>
-                  Add Review
+                  {t("buttons.addReview")}
                 </button>
 
                 <button
                   onClick={() => deleteSong(song._id)}
                   style={{ background: "red", color: "white" }}
                 >
-                  Delete
+                  {t("buttons.delete")}
                 </button>
               </div>
             </div>
@@ -102,7 +106,6 @@ export default function HomePage() {
   );
 }
 
-// style inchangé
 const cardStyle = {
   border: "1px solid #ccc",
   padding: "10px",

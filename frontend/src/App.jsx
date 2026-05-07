@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./i18n";
 
 import AuthContext from "./components/AuthContext/AuthContext";
 

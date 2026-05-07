@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext/AuthContext";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,29 +14,53 @@ export default function LoginForm() {
   const [emailVide, setEmailVide] = useState(false);
   const [passVide, setPassVide] = useState(false);
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const emailVide = email.trim() === "";
-    const passwordVide = password.trim() === "";
+    const emailEmpty = email.trim() === "";
+    const passwordEmpty = password.trim() === "";
 
-    setEmailVide(emailVide);
-    setPassVide(passwordVide);
+    setEmailVide(emailEmpty);
+    setPassVide(passwordEmpty);
 
-    if (emailVide || passwordVide) return;
+    if (emailEmpty || passwordEmpty) return;
 
-    login();
+    try {
+      const res = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-    navigate("/");
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      console.log("LOGIN RESPONSE =", data);
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      localStorage.setItem("token", data.token);
+
+      login();
+      navigate("/");
+    } catch (err) {
+      console.log("LOGIN ERROR:", err);
+    }
   };
 
   return (
     <form onSubmit={authSubmitHandler}>
-      <h2>Login</h2>
+      <h2>{t("login.title")}</h2>
 
       <div className="control-row">
         <div className="control no-margin">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t("login.email")}</label>
           <input
             id="email"
             type="email"
@@ -43,11 +68,11 @@ export default function LoginForm() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          {emailVide && <div className="error">Champ obligatoire</div>}
+          {emailVide && <div className="error">{t("login.required")}</div>}
         </div>
 
         <div className="control no-margin">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t("login.password")}</label>
           <input
             id="password"
             type="password"
@@ -55,16 +80,17 @@ export default function LoginForm() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          {passVide && <div className="error">Champ obligatoire</div>}
+          {passVide && <div className="error">{t("login.required")}</div>}
         </div>
       </div>
 
       <p className="form-actions">
-        <button className="button">Se connecter</button>
+        <button className="button">{t("buttons.login")}</button>
       </p>
 
       <p style={{ marginTop: "1rem" }}>
-        Pas de compte ? <Link to="/register">Créer un compte</Link>
+        {t("login.noAccount")}{" "}
+        <Link to="/register">{t("login.createAccount")}</Link>
       </p>
     </form>
   );

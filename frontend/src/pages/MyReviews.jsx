@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard/ReviewCard";
 import { useAuth } from "../components/AuthContext/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function MyReviewsPage() {
   const [reviews, setReviews] = useState([]);
@@ -10,8 +11,8 @@ export default function MyReviewsPage() {
 
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
+  const { t } = useTranslation();
 
-  // FETCH REVIEWS
   useEffect(() => {
     async function fetchReviews() {
       try {
@@ -30,7 +31,6 @@ export default function MyReviewsPage() {
     fetchReviews();
   }, []);
 
-  // DELETE REVIEW
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
@@ -50,20 +50,21 @@ export default function MyReviewsPage() {
   };
 
   if (!isLoggedIn) {
-    return <p>You must be logged in to view this page.</p>;
+    return <p>{t("common.mustBeLogged")}</p>;
   }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) return <p>{t("common.loading")}</p>;
+
+  if (error) return <p style={{ color: "red" }}>{t(error)}</p>;
 
   return (
     <div className="my-reviews-page">
       {/* TITLE */}
-      <h2>My Reviews</h2>
+      <h2>{t("reviews.title")}</h2>
 
       {/* LIST */}
       {reviews.length === 0 ? (
-        <p>No reviews yet</p>
+        <p>{t("reviews.noReviews")}</p>
       ) : (
         reviews.map((review) => (
           <ReviewCard

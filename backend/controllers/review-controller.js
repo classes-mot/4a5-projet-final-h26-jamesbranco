@@ -49,7 +49,6 @@ const postReview = async (req, res) => {
       rating: req.body.rating,
       comment: req.body.comment,
       song: req.body.song,
-      user: req.user.id,
     });
 
     await review.save();
@@ -57,7 +56,10 @@ const postReview = async (req, res) => {
     res.status(201).json(review);
   } catch (err) {
     console.log("CREATE REVIEW ERROR:", err);
-    res.status(500).json({ message: "Erreur création review" });
+    res.status(500).json({
+      message: "Erreur création review",
+      error: err.message,
+    });
   }
 };
 

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function RegisterForm() {
+  const { t } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +16,7 @@ function RegisterForm() {
     e.preventDefault();
 
     if (!username || !email || !password) {
-      setError("All fields are required");
+      setError(t("register.required"));
       return;
     }
 
@@ -37,7 +40,7 @@ function RegisterForm() {
       navigate("/login");
     } catch (err) {
       console.log("Error register", err);
-      setError("Error during registration");
+      setError(t("register.error"));
     }
   };
 
@@ -46,25 +49,25 @@ function RegisterForm() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <input
-        placeholder="Username"
+        placeholder={t("register.username")}
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
 
       <input
-        placeholder="Email"
+        placeholder={t("register.email")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
 
       <input
         type="password"
-        placeholder="Password"
+        placeholder={t("register.password")}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button type="submit">Register</button>
+      <button type="submit">{t("register.button")}</button>
     </form>
   );
 }
