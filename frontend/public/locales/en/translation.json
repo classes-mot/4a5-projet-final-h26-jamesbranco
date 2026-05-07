@@ -1,0 +1,70 @@
+{
+  "home": {
+    "title": "All Songs 🎧",
+    "noSongs": "No songs found",
+    "reviews": "Reviews",
+    "noReviews": "No reviews"
+  },
+
+  "buttons": {
+    "addReview": "Add Review",
+    "delete": "Delete",
+    "edit": "Edit",
+    "login": "Login",
+    "register": "Register",
+    "addSong": "Add Song",
+    "reset": "Reset"
+  },
+
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "required": "Required field",
+    "noAccount": "No account?",
+    "createAccount": "Create account"
+  },
+
+  "register": {
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "button": "Create account",
+    "required": "All fields are required",
+    "error": "Registration error"
+  },
+
+  "addSong": {
+    "title": "Add Song",
+    "titleLabel": "Title",
+    "artist": "Artist",
+    "genre": "Genre",
+    "choose": "Choose"
+  },
+
+  "reviews": {
+    "title": "My Reviews",
+    "noReviews": "No reviews yet",
+    "by": "By"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "back": "Return",
+    "mustBeLogged": "You must be logged in",
+    "errorLoading": "Error while loading.."
+  },
+
+  "header": {
+    "title": "Music Review",
+    "subtitle": "Discover and review music!"
+  },
+
+  "nav": {
+    "home": "Home",
+    "addSong": "Add Song",
+    "reviews": "My Reviews",
+    "login": "Login",
+    "logout": "Logout"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "home": {
+    "title": "Toutes les chansons 🎧",
+    "noSongs": "Aucune chanson trouvée",
+    "reviews": "Avis",
+    "noReviews": "Aucun avis"
+  },
+
+  "buttons": {
+    "addReview": "Ajouter un avis",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "addSong": "Ajouter la chanson",
+    "reset": "Réinitialiser"
+  },
+
+  "login": {
+    "title": "Connexion",
+    "email": "Email",
+    "password": "Mot de passe",
+    "required": "Champ obligatoire",
+    "noAccount": "Pas de compte ?",
+    "createAccount": "Créer un compte"
+  },
+
+  "register": {
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "password": "Mot de passe",
+    "button": "Créer un compte",
+    "required": "Tous les champs sont obligatoires",
+    "error": "Erreur lors de l'inscription"
+  },
+
+  "addSong": {
+    "title": "Ajouter une chanson",
+    "titleLabel": "Titre",
+    "artist": "Artiste",
+    "genre": "Genre",
+    "choose": "Choisir"
+  },
+
+  "reviews": {
+    "title": "Mes avis",
+    "noReviews": "Aucun avis pour le moment",
+    "by": "Par"
+  },
+
+  "common": {
+    "loading": "Chargement...",
+    "back": "Retour",
+    "mustBeLogged": "Vous devez être connecté",
+    "errorLoading": "Erreur de chargement"
+  },
+
+  "header": {
+    "title": "Music Review",
+    "subtitle": "Découvrir et donner vos avis !"
+  },
+
+  "nav": {
+    "home": "Accueil",
+    "addSong": "Ajouter chanson",
+    "reviews": "Mes avis",
+    "login": "Connexion",
+    "logout": "Déconnexion"
+  }
+}
