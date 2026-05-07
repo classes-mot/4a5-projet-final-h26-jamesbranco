@@ -31,6 +31,6 @@ app.use(errorHandler);
 
 await connectDB();
 
-app.listen(5000, () => {
-  console.log("serveur écoute au", `http://localhost:5000`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
