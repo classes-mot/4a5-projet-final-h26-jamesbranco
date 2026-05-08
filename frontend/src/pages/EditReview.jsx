@@ -9,7 +9,7 @@ export default function EditReview() {
   useEffect(() => {
     async function fetchReview() {
       try {
-        const res = await fetch(`http://localhost:5000/api/reviews/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/reviews/${id}`);
 
         const data = await res.json();
 

@@ -13,7 +13,7 @@ export default function ReviewPage() {
   useEffect(() => {
     async function fetchSong() {
       try {
-        const res = await fetch(`http://localhost:5000/api/songs/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs/${id}`);
 
         if (!res.ok) {
           throw new Error("Failed to load song");
@@ -21,7 +21,6 @@ export default function ReviewPage() {
 
         const data = await res.json();
 
-        // ⚠️ IMPORTANT: ton backend retourne probablement { song: {...} }
         setSong(data.song || data);
 
         setLoading(false);

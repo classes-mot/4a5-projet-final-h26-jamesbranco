@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard/ReviewCard";
 import { useAuth } from "../components/AuthContext/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -14,28 +14,45 @@ export default function MyReviewsPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
     async function fetchReviews() {
       try {
-        const res = await fetch("http://localhost:5000/api/reviews");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/reviews`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+
         const data = await res.json();
 
         setReviews(Array.isArray(data) ? data : []);
-        setLoading(false);
       } catch (err) {
         console.log(err);
         setError("Error loading reviews");
+      } finally {
         setLoading(false);
       }
     }
 
-    fetchReviews();
-  }, []);
+    if (isLoggedIn) {
+      fetchReviews();
+    }
+  }, [isLoggedIn]);
 
+  // Delete review
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/reviews/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       const data = await res.json();
 
@@ -49,20 +66,21 @@ export default function MyReviewsPage() {
     }
   };
 
-  if (!isLoggedIn) {
-    return <p>{t("common.mustBeLogged")}</p>;
+  // Prevent render before redirect
+  if (!isLoggedIn) return null;
+
+  if (loading) {
+    return <p>{t("common.loading")}</p>;
   }
 
-  if (loading) return <p>{t("common.loading")}</p>;
-
-  if (error) return <p style={{ color: "red" }}>{t(error)}</p>;
+  if (error) {
+    return <p style={{ color: "red" }}>{t(error)}</p>;
+  }
 
   return (
     <div className="my-reviews-page">
-      {/* TITLE */}
       <h2>{t("reviews.title")}</h2>
 
-      {/* LIST */}
       {reviews.length === 0 ? (
         <p>{t("reviews.noReviews")}</p>
       ) : (

@@ -17,7 +17,7 @@ export default function EditSongPage() {
   useEffect(() => {
     async function fetchSong() {
       try {
-        const res = await fetch(`http://localhost:5000/api/songs/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs/${id}`);
 
         if (!res.ok) {
           throw new Error("Failed to load song");
@@ -57,7 +57,7 @@ export default function EditSongPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/songs/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

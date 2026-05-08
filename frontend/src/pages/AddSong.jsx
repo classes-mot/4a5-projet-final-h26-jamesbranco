@@ -18,13 +18,21 @@ export default function AddSong() {
     };
 
     try {
-      await fetch("http://localhost:5000/api/songs", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/songs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newSong),
       });
+
+      const data = await res.json();
+
+      console.log("POST RESPONSE:", data);
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to add song");
+      }
 
       navigate("/");
     } catch (error) {
