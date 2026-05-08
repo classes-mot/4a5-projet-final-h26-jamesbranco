@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-await connectDB();
+await connectDB(MONGODB_URI);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

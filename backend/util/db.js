@@ -2,10 +2,8 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-export const connectDB = async () => {
+export const connectDB = async (uri) => {
   if (isConnected) return;
-
-  const uri = "mongodb://127.0.0.1:27017/JamesBrancoTP_BD";
 
   try {
     await mongoose.connect(uri);
