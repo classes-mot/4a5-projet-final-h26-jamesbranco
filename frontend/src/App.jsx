@@ -3,7 +3,7 @@ import "./i18n";
 
 import AuthContext from "./components/AuthContext/AuthContext";
 
-import RootLayout from "./Pages/RootLayout";
+import RootLayout from "./pages/RootLayout";
 import Error from "./pages/Error";
 
 import HomePage from "./pages/HomePage";
