@@ -4,20 +4,20 @@ import "./i18n";
 import AuthContext from "./components/AuthContext/AuthContext";
 
 import RootLayout from "./Pages/RootLayout";
-import Error from "./Pages/Error";
+import Error from "./pages/Error";
 
-import HomePage from "./Pages/HomePage";
+import HomePage from "./pages/HomePage";
 
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-import AddSong from "./Pages/AddSong";
-import EditSong from "./Pages/EditSong";
+import AddSong from "./pages/AddSong";
+import EditSong from "./pages/EditSong";
 
-import Review from "./Pages/Review";
-import MyReviews from "./Pages/MyReviews";
-import AddReview from "./Pages/AddReview";
-import EditReview from "./Pages/EditReview";
+import Review from "./pages/Review";
+import MyReviews from "./pages/MyReviews";
+import AddReview from "./pages/AddReview";
+import EditReview from "./pages/EditReview";
 
 const router = createBrowserRouter([
   {
